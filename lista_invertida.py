@@ -9,6 +9,7 @@ class Lista_Invertida:
     self.cidades = DiretorioDiscreto()
     self.estilos_musicais = DiretorioDiscreto()
     self.salarios = DiretorioContinuo()
+    self.conjunto_selecionado = []
 
   def verifica_resposta(self, pergunta):
     if pergunta.upper() == 'S':
@@ -19,12 +20,19 @@ class Lista_Invertida:
   def carregar_cargo_de_dados(self):
     carga_de_dados = [Elemento(1, "Pedro", "Florianópolis", "Rock", 1500.5), Elemento(2, "João", "Florianópolis", "Funk", 5500.5), Elemento(3, "Rafaela", "São José", "MPB", 2500.83), Elemento(4, "Júlia", "Palhoça", "Sertanejo", 7200.0), Elemento(5, "Germán", "Buenos Aires", "Tango", 2100.55), Elemento(6, "Juan", "Florianópolis", "Rock", 3400.2), Elemento(7, "Joana", "Palhoça", "Funk", 4500.4), Elemento(8, "Letícia", "Florianópolis", "Pagode", 2000.7), Elemento(9, "Thiago", "São José", "Rock", 9800.0), Elemento(10, "Marcelo", "Palhoça", "MPB", 7050.7)]
     for elemento in carga_de_dados:
+      self.conjunto_selecionado.append(elemento.id)
       self.lista_elementos.append(elemento) 
 
   def menu(self):
     sleep(3)
+    print('\nBuscando no conjunto:')
+    elementos_selecionado = []
+    for elemento in self.lista_elementos:
+      if elemento.id in self.conjunto_selecionado:
+        elementos_selecionado.append(str(elemento.id) + " - " + elemento.nome)
+    print(elementos_selecionado)
     print('\nEscolha uma das opções:')
-    print(('1 - Buscar por cidade\n2 - Buscar por estilo musical\n3 - Buscar por salário\n4 - Fazer busca composta\n5 - Incluir nova pessoa\n6 - Remover pessoa\n7 - Exibir todas as pessoas\n8 - Sair'))
+    print(('1 - Buscar por cidade\n2 - Buscar por estilo musical\n3 - Buscar por salário\n4 - Limpar conjunto selecionado\n5 - Incluir nova pessoa\n6 - Remover pessoa\n7 - Exibir todas as pessoas\n8 - Sair'))
     resposta = int(input('\nEscolha sua opção: '))
     if resposta in [1, 2, 3, 4, 5, 6, 7, 8]:
       return resposta
@@ -100,6 +108,14 @@ class Lista_Invertida:
         self.lista_elementos.remove(pessoa)
         print('Pessoa removida com sucesso!')
 
+    
+  def apaga_conjunto_selecionado(self):
+    conjunto_novo = []
+    for elemento in self.lista_elementos:
+      conjunto_novo.append(elemento.id)
+    self.conjunto_selecionado = conjunto_novo
+    print("Conjunto selecionado resetado")
+
   def iniciar_programa(self):
     pergunta = input('Você deseja carregar a carga de dados? ')
     if self.verifica_resposta(pergunta):
@@ -112,32 +128,58 @@ class Lista_Invertida:
       resposta_menu = self.menu()
       if resposta_menu == 1:
         if self.verifica_lista_vazia() is False:
+
           for i in range(0 , len(self.cidades.chaves_cadastradas)):
             print(f'{i+1} - {self.cidades.chaves_cadastradas[i]}')
+
           cidade_escolhida = self.cidades.chaves_cadastradas[int(input('\nEscolha sua opção: '))-1]
+
           print(f'\nAs pessoas de {cidade_escolhida} são: ')
+
           sleep(1)
+
+          conjunto_atual = []
           for cidade in self.cidades.dados_diretorio:
             if cidade_escolhida == cidade[0]:
               for id in cidade[1]:
                 for pessoa in self.lista_elementos:
                   if id == pessoa.id:
-                    print(pessoa.nome)
+                    if id in self.conjunto_selecionado:
+                      conjunto_atual.append(id)
+                      print(pessoa.nome)
+          if not conjunto_atual:
+            print("Nenhuma pessoa encontrada na busca realizada")
+            self.apaga_conjunto_selecionado()
+          else:
+            self.conjunto_selecionado = conjunto_atual
         else:
           print('teste')
+
       elif resposta_menu == 2:
         if self.verifica_lista_vazia() is False:
           for i in range(0 , len(self.estilos_musicais.chaves_cadastradas)):
             print(f'{i+1} - {self.estilos_musicais.chaves_cadastradas[i]}')
           estilo_escolhido = self.estilos_musicais.chaves_cadastradas[int(input('\nEscolha sua opção: '))-1]
           print(f'\nAs pessoas do {estilo_escolhido} são: ')
+
           sleep(1)
+
+          conjunto_atual = []
+
           for estilo_musical in self.estilos_musicais.dados_diretorio:
             if estilo_escolhido == estilo_musical[0]:
               for id in estilo_musical[1]:
                 for pessoa in self.lista_elementos:
                   if id == pessoa.id:
-                    print(pessoa.nome)
+                    if id in self.conjunto_selecionado:
+                      conjunto_atual.append(id)
+                      print(pessoa.nome)
+          if not conjunto_atual:
+            print("Nenhuma pessoa encontrada na busca realizada")
+            self.apaga_conjunto_selecionado()
+          else:
+            self.conjunto_selecionado = conjunto_atual
+
       elif resposta_menu == 3:
         if self.verifica_lista_vazia() is False:
           for i in range(0 , len(self.salarios.chaves_cadastradas)):
@@ -145,21 +187,36 @@ class Lista_Invertida:
           salario_escolhido = self.salarios.chaves_cadastradas[int(input('\nEscolha sua opção: '))-1]
           print(f'\nAs pessoas de salário {salario_escolhido} são: ')
           sleep(1)
+
+          conjunto_atual = []
+
           for salario in self.salarios.dados_diretorio:
             if salario_escolhido == float(salario[0]):
               for id in salario[1]:
                 for pessoa in self.lista_elementos:
                   if id == pessoa.id:
-                    print(pessoa.nome)
+                    if id in self.conjunto_selecionado:
+                      conjunto_atual.append(id)
+                      print(pessoa.nome)
+  
+          if not conjunto_atual:
+            print("Nenhuma pessoa encontrada na busca realizada")
+            self.apaga_conjunto_selecionado()
+          else:
+            self.conjunto_selecionado = conjunto_atual
+
       elif resposta_menu == 4:
         if self.verifica_lista_vazia() is False:
-          pass
+          self.apaga_conjunto_selecionado()
+
       elif resposta_menu == 5:
         if self.verifica_lista_vazia() is False:
           self.adicionar_pessoa()
+
       elif resposta_menu == 6:
         if self.verifica_lista_vazia() is False:
           self.remover_pessoa()
+
       elif resposta_menu == 7:
         if self.verifica_lista_vazia() is False:
           print('Aqui está a lista de elementos:')
