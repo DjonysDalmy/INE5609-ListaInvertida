@@ -26,15 +26,15 @@ class Lista_Invertida:
   def menu(self):
     sleep(3)
     print('\nBuscando no conjunto:')
-    elementos_selecionado = []
+    elementos_selecionados = []
     for elemento in self.lista_elementos:
       if elemento.id in self.conjunto_selecionado:
-        elementos_selecionado.append(str(elemento.id) + " - " + elemento.nome)
-    print(elementos_selecionado)
+        elementos_selecionados.append(str(elemento.id) + " - " + elemento.nome)
+    print(elementos_selecionados)
     print('\nEscolha uma das opções:')
-    print(('1 - Buscar por cidade\n2 - Buscar por estilo musical\n3 - Buscar por salário\n4 - Limpar conjunto selecionado\n5 - Incluir nova pessoa\n6 - Remover pessoa\n7 - Exibir todas as pessoas\n8 - Sair'))
+    print(('1 - Buscar por cidade\n2 - Buscar por estilo musical\n3 - Buscar por salário\n4 - Limpar conjunto selecionado\n5 - Incluir nova pessoa\n6 - Remover pessoa\n7 - Exibir todas as pessoas\n8 - Exibir todas as pessoas no conjunto selecionado\n9 - Sair'))
     resposta = int(input('\nEscolha sua opção: '))
-    if resposta in [1, 2, 3, 4, 5, 6, 7, 8]:
+    if resposta in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
       return resposta
     else:
       print('\nResposta não encontrada!')
@@ -105,6 +105,9 @@ class Lista_Invertida:
                 if salario_pessoa_excluida == self.salarios.chaves_cadastradas[i]:
                   self.salarios.chaves_cadastradas.remove(salario_pessoa_excluida)
 
+        if id_pessoa_excluida in self.conjunto_selecionado:
+          self.conjunto_selecionado.remove(id_pessoa_excluida)
+
         self.lista_elementos.remove(pessoa)
         print('Pessoa removida com sucesso!')
 
@@ -124,7 +127,7 @@ class Lista_Invertida:
     else:
       print('\nOk! Vamos iniciar sem dados...')
     resposta_menu = ''
-    while resposta_menu != 8:
+    while resposta_menu != 9:
       resposta_menu = self.menu()
       if resposta_menu == 1:
         if self.verifica_lista_vazia() is False:
@@ -212,6 +215,7 @@ class Lista_Invertida:
       elif resposta_menu == 5:
         if self.verifica_lista_vazia() is False:
           self.adicionar_pessoa()
+          self.apaga_conjunto_selecionado()
 
       elif resposta_menu == 6:
         if self.verifica_lista_vazia() is False:
@@ -222,3 +226,10 @@ class Lista_Invertida:
           print('Aqui está a lista de elementos:')
           for elemento in self.lista_elementos:
             print(f'ID: {elemento.id} - Nome: {elemento.nome}, Cidade: {elemento.cidade}, Estilo Musical: {elemento.estilo_musical}, Salário: {elemento.salario}')
+
+      elif resposta_menu == 8:
+        if self.verifica_lista_vazia() is False:
+          print('Aqui está a lista de elementos:')
+          for elemento in self.lista_elementos:
+            if elemento.id in self.conjunto_selecionado:
+              print(f'ID: {elemento.id} - Nome: {elemento.nome}, Cidade: {elemento.cidade}, Estilo Musical: {elemento.estilo_musical}, Salário: {elemento.salario}')
