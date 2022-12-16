@@ -63,20 +63,40 @@ class Lista_Invertida:
 
   def remover_pessoa(self):
     id_pessoa_excluida = int(input('Informe o ID da pessoa que quer excluir: '))
+
     for pessoa in self.lista_elementos:
       if id_pessoa_excluida == pessoa.id:
         cidade_pessoa_excluida = pessoa.cidade
         estilo_musical_pessoa_excluida = pessoa.estilo_musical
         salario_pessoa_excluida = pessoa.salario
+
         for cidade in self.cidades.dados_diretorio:
           if cidade[0] == cidade_pessoa_excluida:
             cidade[1].remove(id_pessoa_excluida)
+            if len(cidade[1]) == 0:
+              self.cidades.dados_diretorio.remove(cidade)
+              for i in range (0, len(self.cidades.chaves_cadastradas)):
+                if cidade_pessoa_excluida == self.cidades.chaves_cadastradas[i]:
+                  self.cidades.chaves_cadastradas.remove(cidade_pessoa_excluida)
+
         for estilo_musical in self.estilos_musicais.dados_diretorio:
           if estilo_musical[0] == estilo_musical_pessoa_excluida:
             estilo_musical[1].remove(id_pessoa_excluida)
+            if len(estilo_musical[1]) == 0:
+              self.estilos_musicais.dados_diretorio.remove(estilo_musical)
+              for i in range (0, len(self.estilos_musicais.chaves_cadastradas)):
+                if estilo_musical_pessoa_excluida == self.estilos_musicais.chaves_cadastradas[i]:
+                  self.estilos_musicais.chaves_cadastradas.remove(estilo_musical_pessoa_excluida)
+            
         for salario in self.salarios.dados_diretorio:
           if salario[0] == salario_pessoa_excluida:
             salario[1].remove(id_pessoa_excluida)
+            if len(salario[1]) == 0:
+              self.salarios.dados_diretorio.remove(salario)
+              for i in range (0, len(self.salarios.chaves_cadastradas)):
+                if salario_pessoa_excluida == self.salarios.chaves_cadastradas[i]:
+                  self.salarios.chaves_cadastradas.remove(salario_pessoa_excluida)
+
         self.lista_elementos.remove(pessoa)
         print('Pessoa removida com sucesso!')
 
