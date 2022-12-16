@@ -38,26 +38,26 @@ Utilizamos o conceito de Lista Invertida para uma busca mais rápida eficiente d
 
 **Lista original:**
 *id: Nome,Cidade,Estilo Musical,Salário*
-1: Pedro,Florianópolis,Rock,2000.0
-2: João,Palhoça,Funk,2000.0
-3: Carlos,São José,Rock,4000.0
-4: Cleiton,São José,Sertanejo,1500.0
-5: Kebler,São José,Funk,1700.0
+- 1: Pedro,Florianópolis,Rock,2000.0
+- 2: João,Palhoça,Funk,2000.0
+- 3: Carlos,São José,Rock,4000.0
+- 4: Cleiton,São José,Sertanejo,1500.0
+- 5: Kebler,São José,Funk,1700.0
 
 **Lista invertida (Cidade):**
-Florianópolis: {1}
-Palhoça: {2}
-São José: {3,4,5}
+- Florianópolis: {1}
+- Palhoça: {2}
+- São José: {3,4,5}
 
 **Lista invertida (Estilo Musical):**
-Rock: {1,3}
-Funk: {2,5}
-Sertanejo: {4}
+- Rock: {1,3}
+- Funk: {2,5}
+- Sertanejo: {4}
 
 **Lista invertida (Salário):**
-1500.0: {4}
-1700.0: {5}
-2000.0: {1,2}
-4000.0: {3}
+- 1500.0: {4}
+- 1700.0: {5}
+- 2000.0: {1,2}
+- 4000.0: {3}
 
 Decidimos dividir o programa entre a classe *Lista_Invertida* (Que contém as operações principais para interação com a nossa lista de dados), *Elemento* (Tudo relativo aos elementos que estão dentro dessa lista principal), *DiretorioDiscreto* e *DiretorioContinuo* (Estes dois como forma subdividir classes diferente de diretórios que compõem a lista principal, uma vez que possuem regras diferentes de inserção/comportamento/etc)
