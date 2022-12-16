@@ -40,9 +40,6 @@ class Lista_Invertida:
       print('\nResposta não encontrada!')
       self.menu()
 
-  def menu_busca_composta(self):
-    pass
-
   def carregar_diretorios(self):
     for elemento in self.lista_elementos:
       self.cidades.acrescentar_item_diretorio(elemento.cidade, elemento.id)
@@ -111,7 +108,6 @@ class Lista_Invertida:
         self.lista_elementos.remove(pessoa)
         print('Pessoa removida com sucesso!')
 
-    
   def apaga_conjunto_selecionado(self):
     conjunto_novo = []
     for elemento in self.lista_elementos:
